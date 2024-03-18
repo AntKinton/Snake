@@ -37,13 +37,47 @@ public class Snake {
         this.direction = direction;
     }
     
+    public void move() {
+        int headRow = body.get(0).getRow();
+        int headCol = body.get(0).getCol();
+        switch (direction) {
+            case UP: headRow++;
+                break;
+            case DOWN: headRow--;
+                break;
+            case LEFT: headCol--;
+                break;
+            case RIGHT: headCol++;
+                break;
+        }
+        Node node = new Node (headRow,headCol);
+        body.add(0, node);
+        if (nodesToGrow == 0) {
+            body.remove(body.size() - 1);
+        }
+        
+    }
+    
+    public boolean canMove(int nextRow, int nextCol) {
+        if (nextRow < Board.NUM_ROWS || nextRow > Board.NUM_COLS) {
+            return false;
+            
+        } else {
+            if (nextCol < Board.NUM_COLS || nextCol > Board.NUM_COLS) {
+                return false;
+            }
+        }
+        return true;
+        
+    }
+    
     
     public void paint (Graphics g, int squareWidth, int squareHeight) {
         boolean firstNode = true;
         Color color;
         for (Node node: body) {
             if (firstNode) {
-                color = Color.red;
+                color = Color.green;
                 firstNode = false;
             } else {
                 color = Color.yellow;
@@ -52,6 +86,9 @@ public class Snake {
         }
     }
     
+    /*public void Snake (Node foodNode) {
+        for (int )
+    }*/
+    
     
 }
-
