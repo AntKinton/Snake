@@ -29,8 +29,17 @@ public class Snake {
         nodesToGrow = 0;
     }
     
-    public List<Node> getbody() {
+    public List<Node> getBody() {
         return body;
+    }
+    
+    
+    public Node getHeadNode() {
+        return body.get(0);
+    }
+    
+    public Node getTailNode() {
+        return body.get(body.size()-1);
     }
     
     public void setDirection(Direction direction) {
@@ -38,32 +47,44 @@ public class Snake {
     }
     
     public void move() {
-        int headRow = body.get(0).getRow();
-        int headCol = body.get(0).getCol();
+        int headRow = getHeadNode().getRow();
+        int headCol = getHeadNode().getCol();
+       
         switch (direction) {
-            case UP: headRow++;
+            case UP: headRow--;
                 break;
-            case DOWN: headRow--;
+            case DOWN: headRow++;
                 break;
             case LEFT: headCol--;
                 break;
             case RIGHT: headCol++;
                 break;
         }
-        Node node = new Node (headRow,headCol);
-        body.add(0, node);
-        if (nodesToGrow == 0) {
-            body.remove(body.size() - 1);
+        if (canMove(headRow, headCol)) {
+            Node node = new Node (headRow,headCol);
+            while (nodesToGrow > 0) {
+                body.add(0, node);
+                nodesToGrow--;
+            }
+            System.out.println(body.size());
+            removeTailNode();
         }
-        
     }
     
-    public boolean canMove(int nextRow, int nextCol) {
-        if (nextRow < Board.NUM_ROWS || nextRow > Board.NUM_COLS) {
+    private void removeTailNode(){
+         if (nodesToGrow == 0 && !body.isEmpty()){
+           
+            body.remove(getTailNode());
+        }
+        System.out.println(body.size());
+    }
+    
+    public boolean canMove(int headRow, int headCol) {
+        if (headRow < 0 || headRow >= Board.NUM_ROWS) {
             return false;
             
         } else {
-            if (nextCol < Board.NUM_COLS || nextCol > Board.NUM_COLS) {
+            if (headCol < 0 || headCol >= Board.NUM_COLS) {
                 return false;
             }
         }
@@ -71,6 +92,14 @@ public class Snake {
         
     }
     
+    public boolean findsFood(Node node) {
+        return (getHeadNode().row == node.row 
+                && getHeadNode().col == node.col);
+    }
+    
+    public void setNodesToGrow(int nodesToGrow) {
+        this.nodesToGrow = nodesToGrow;
+    }
     
     public void paint (Graphics g, int squareWidth, int squareHeight) {
         boolean firstNode = true;
@@ -86,9 +115,6 @@ public class Snake {
         }
     }
     
-    /*public void Snake (Node foodNode) {
-        for (int )
-    }*/
     
     
 }
