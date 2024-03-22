@@ -4,6 +4,8 @@
  */
 package com.mycompany.snake;
 
+import java.awt.Dimension;
+
 /**
  *
  * @author alu13257670
@@ -15,6 +17,11 @@ public class Game extends javax.swing.JFrame {
      */
     public Game() {
         initComponents();
+        setLocationRelativeTo(null);
+        board1.setPreferredSize(new Dimension(getWidth()*Board.NUM_ROWS, getHeight()*Board.NUM_COLS));
+        pack();
+        
+        
     }
 
     /**
@@ -26,7 +33,21 @@ public class Game extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        board1 = new com.mycompany.snake.Board();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().add(board1, java.awt.BorderLayout.CENTER);
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -67,5 +88,9 @@ public class Game extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.mycompany.snake.Board board1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }
