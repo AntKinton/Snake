@@ -35,8 +35,8 @@ public class Game extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
+        newGameButton = new javax.swing.JButton();
         playPauseButton = new javax.swing.JToggleButton();
-        restartButton = new javax.swing.JButton();
         scoreBoard1 = new com.mycompany.snake.ScoreBoard();
         board1 = new com.mycompany.snake.Board();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -52,7 +52,18 @@ public class Game extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        playPauseButton.setText("Play/pause");
+        newGameButton.setText("New game");
+        newGameButton.setFocusable(false);
+        newGameButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        newGameButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        newGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newGameButtonActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(newGameButton);
+
+        playPauseButton.setText("Pause");
         playPauseButton.setFocusable(false);
         playPauseButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playPauseButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -62,17 +73,6 @@ public class Game extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(playPauseButton);
-
-        restartButton.setText("Restart");
-        restartButton.setFocusable(false);
-        restartButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        restartButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        restartButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                restartButtonActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(restartButton);
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
         getContentPane().add(scoreBoard1, java.awt.BorderLayout.PAGE_END);
@@ -107,8 +107,18 @@ public class Game extends javax.swing.JFrame {
         jMenuBar1.add(gameMenu);
 
         optionMenu.setText("Options");
+        optionMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optionMenuActionPerformed(evt);
+            }
+        });
 
         levelMenuItem.setText("Level");
+        levelMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                levelMenuItemActionPerformed(evt);
+            }
+        });
         optionMenu.add(levelMenuItem);
 
         aboutMenuItem.setText("About..");
@@ -121,30 +131,44 @@ public class Game extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void restartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartButtonActionPerformed
-        // TODO add your handling code here:
-        board1.resetBoard();
-    }//GEN-LAST:event_restartButtonActionPerformed
-
     private void playPauseMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseMenuItemActionPerformed
         // TODO add your handling code here:
-        board1.togglePlayPauseGame();
+        board1.pauseGame();
     }//GEN-LAST:event_playPauseMenuItemActionPerformed
 
     private void playPauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseButtonActionPerformed
         // TODO add your handling code here:
-        board1.togglePlayPauseGame();
+        board1.pauseGame();
     }//GEN-LAST:event_playPauseButtonActionPerformed
 
     private void restartMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartMenuItemActionPerformed
         // TODO add your handling code here:
-        board1.resetBoard();
+        board1.initGame();
     }//GEN-LAST:event_restartMenuItemActionPerformed
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
+
+    private void optionMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_optionMenuActionPerformed
+
+    private void levelMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelMenuItemActionPerformed
+        // TODO add your handling code here:
+        ConfigDialog configDialog = new ConfigDialog(this, true);
+        board1.pauseGame();
+        configDialog.setVisible(true);
+        board1.requestFocus();
+        board1.initGame();
+    }//GEN-LAST:event_levelMenuItemActionPerformed
+
+    private void newGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameButtonActionPerformed
+        // TODO add your handling code here:
+        board1.newGame();
+        board1.initGame();
+    }//GEN-LAST:event_newGameButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,10 +213,10 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuItem levelMenuItem;
+    private javax.swing.JButton newGameButton;
     private javax.swing.JMenu optionMenu;
     private javax.swing.JToggleButton playPauseButton;
     private javax.swing.JMenuItem playPauseMenuItem;
-    private javax.swing.JButton restartButton;
     private javax.swing.JMenuItem restartMenuItem;
     private com.mycompany.snake.ScoreBoard scoreBoard1;
     // End of variables declaration//GEN-END:variables
