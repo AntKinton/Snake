@@ -7,6 +7,7 @@ package com.mycompany.snake;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import javax.swing.Timer;
 
 /**
  *
@@ -20,11 +21,31 @@ public class Game extends javax.swing.JFrame {
     public Game() {
         initComponents();
         setLocationRelativeTo(null);
+        //initCustomComponents();
         board1.setPreferredSize(new Dimension(getWidth()*Board.NUM_ROWS, getHeight()*Board.NUM_COLS));
+        getContentPane().add(board1, java.awt.BorderLayout.CENTER);
+        initSettingsDialog();
         pack();
+        //board1 = new Board(this);
         
     }
+    
+    public void initSettingsDialog() {
+        ConfigDialog configDialog = new ConfigDialog(this, true);
+        //board1.pauseGame();
+        configDialog.setVisible(true);
+        //board1.requestFocus();
+        board1.initGame();
+    }
+    
+    private void initCustomComponents() {
+        // Sobrescribir la instancia de Board con una referencia a Game
+        board1 = new Board();
+        board1.setPreferredSize(new Dimension(getWidth() * Board.NUM_ROWS, getHeight() * Board.NUM_COLS));
+        getContentPane().add(board1, java.awt.BorderLayout.CENTER);
+    }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -157,11 +178,12 @@ public class Game extends javax.swing.JFrame {
 
     private void levelMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelMenuItemActionPerformed
         // TODO add your handling code here:
-        ConfigDialog configDialog = new ConfigDialog(this, true);
+        /*ConfigDialog configDialog = new ConfigDialog(this, true);
         board1.pauseGame();
         configDialog.setVisible(true);
         board1.requestFocus();
-        board1.initGame();
+        board1.initGame();*/
+        initSettingsDialog();
     }//GEN-LAST:event_levelMenuItemActionPerformed
 
     private void newGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameButtonActionPerformed

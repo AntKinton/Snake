@@ -4,11 +4,21 @@
  */
 package com.mycompany.snake;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  *
  * @author alu13257670
  */
 public class Food extends Node {
     
+    public Food (int row, int col) {
+        super(row, col);
+    }
     
+    public void paintNode (Graphics g, int squareWidth, int squareHeight) {
+        Color color = Color.lightGray;
+        Util.drawSquare(g, getRow(), getCol(), color, squareWidth, squareHeight);
+    }
 }

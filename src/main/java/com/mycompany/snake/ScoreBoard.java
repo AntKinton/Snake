@@ -9,12 +9,29 @@ package com.mycompany.snake;
  *
  * @author alu13257670
  */
-public class ScoreBoard extends javax.swing.JPanel {
+public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
 
     /** Creates new form ScoreBoard */
     public ScoreBoard() {
         initComponents();
     }
+    
+    public void incrementScore() {
+        int currentScore = ConfigData.getInstance().getScore() + 1;
+        ConfigData.getInstance().setScore(currentScore);
+        updateScoreLabel();
+    }
+    
+    public void reset() {
+        ConfigData.getInstance().setScore(0);
+        updateScoreLabel();
+    }
+    
+    private void updateScoreLabel() {
+        jLabelScore.setText("" + ConfigData.getInstance().getScore());
+    }
+    
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -25,20 +42,35 @@ public class ScoreBoard extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabelScore = new javax.swing.JLabel();
+
+        jLabelScore.setText("0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabelScore)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 34, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 8, Short.MAX_VALUE)
+                    .addComponent(jLabelScore)
+                    .addGap(0, 9, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelScore;
     // End of variables declaration//GEN-END:variables
 
 }

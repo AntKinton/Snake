@@ -70,19 +70,21 @@ public class Board extends javax.swing.JPanel {
      */
     public Board() {
         initComponents();
+        newGame();
+        initGame();
     }
     
-    public Board(Game game) {
+    /*public Board(Game game) {
         this.game = game;
         //initComponents();
-        newGame();
+        //newGame();
         /*snake = new Snake();
         food = genFood();
         sFood = genSpecialFood();
-        keyAdapter = new MyKeyAdapter();*/
+        keyAdapter = new MyKeyAdapter();
         //initGame();
         //repaint();
-    }
+    }*/
 
     public void initGame() {
         addKeyListener(keyAdapter);
@@ -100,13 +102,7 @@ public class Board extends javax.swing.JPanel {
 
         });
         timer.start();
-        //setRequestFocusEnabled(true);
-        if (!snake.move()) {
-            Game game = new Game();
-            newGame();
-            game.initSettingsDialog();
-            
-        };
+        setRequestFocusEnabled(true);
     }
 
     public void pauseGame() {
@@ -120,16 +116,17 @@ public class Board extends javax.swing.JPanel {
     public void newGame() {
         snake = new Snake();
         food = genFood();
-        sFood = genSpecialFood();
+        //sFood = genSpecialFood();
         //sFood=null;
         keyAdapter = new MyKeyAdapter();
-        requestFocus();
-
-        initGame();
-        repaint();
+        //requestFocus();
+        //initGame();
+        //repaint();
     }
 
     private void tick() {
+        snake.makeMove();
+        
         /*if (catchSPCount == SP_FOOD_CATCH_INTERVAL) {
             if (respawnSPCount == SP_FOOD_RESPAWN_INTERVAL) {
                 sFood = genSpecialFood();
@@ -158,10 +155,15 @@ public class Board extends javax.swing.JPanel {
             }
 
         }
-        
-        repaint();
+        /*if (!snake.makeMove()) {
+            Game game = new Game();
+            newGame();
+            game.initSettingsDialog();
+        };*/
         catchSPCount++;
         respawnSPCount++;
+        
+        repaint();
     }
 
     public Food genFood() {
@@ -190,9 +192,9 @@ public class Board extends javax.swing.JPanel {
         g.drawRect(0, 0, getWidth() / NUM_COLS * NUM_COLS,
                 getHeight() / NUM_ROWS * NUM_ROWS);
         if (!snake.getBody().isEmpty()) {
-            snake.paint(g, getSquareWidth(), getSquareHeight());
-            food.paint(g, getSquareWidth(), getSquareHeight());
-            //sFood.paint(g, getSquareWidth(), getSquareHeight());
+            snake.paintBody(g, getSquareWidth(), getSquareHeight());
+            food.paintNode(g, getSquareWidth(), getSquareHeight());
+            //sFood.paintNode(g, getSquareWidth(), getSquareHeight());
         }
         Toolkit.getDefaultToolkit().sync();
     }

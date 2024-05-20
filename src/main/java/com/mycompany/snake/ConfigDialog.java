@@ -4,6 +4,9 @@
  */
 package com.mycompany.snake;
 
+import javax.swing.JComboBox;
+import javax.swing.Timer;
+
 /**
  *
  * @author alu13257670
@@ -16,7 +19,13 @@ public class ConfigDialog extends javax.swing.JDialog {
     public ConfigDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+        levelComboBox.setSelectedIndex(ConfigData.getInstance().getLevel());
+        
     }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +36,95 @@ public class ConfigDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        levelLabel = new javax.swing.JLabel();
+        levelComboBox = new javax.swing.JComboBox<>();
+        settingsButton = new javax.swing.JButton();
+        nameLabel = new javax.swing.JLabel();
+        nameTextField = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        levelLabel.setText("Select level:");
+
+        levelComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Beginner", "Intermediate", "Difficult", " ", " " }));
+        levelComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                levelComboBoxActionPerformed(evt);
+            }
+        });
+
+        settingsButton.setText("OK");
+        settingsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                settingsButtonActionPerformed(evt);
+            }
+        });
+
+        nameLabel.setText("Player name:");
+
+        nameTextField.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(180, Short.MAX_VALUE)
+                .addComponent(settingsButton)
+                .addGap(21, 21, 21))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nameLabel)
+                    .addComponent(levelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(levelLabel)
+                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(nameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(levelLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(levelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(settingsButton)
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void levelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelComboBoxActionPerformed
+        // TODO add your handling code here:
+        switch (levelComboBox.getSelectedIndex()) {
+            case 0: //Beginner
+                ConfigData.getInstance().setDeltaTime(500);
+                ConfigData.getInstance().setLevel(0);
+                break;
+            case 1: //Intermediate
+                ConfigData.getInstance().setDeltaTime(200);
+                ConfigData.getInstance().setLevel(1);
+                break;
+            case 2: //Difficult
+                ConfigData.getInstance().setDeltaTime(100);
+                ConfigData.getInstance().setLevel(2);
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }//GEN-LAST:event_levelComboBoxActionPerformed
+
+    private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        //dispose();
+    }//GEN-LAST:event_settingsButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -86,5 +169,10 @@ public class ConfigDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> levelComboBox;
+    private javax.swing.JLabel levelLabel;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JTextField nameTextField;
+    private javax.swing.JButton settingsButton;
     // End of variables declaration//GEN-END:variables
 }

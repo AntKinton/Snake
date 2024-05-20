@@ -4,18 +4,22 @@
  */
 package com.mycompany.snake;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  *
  * @author alu13257670
  */
 public class Node {
     
-    int row;
-    int col;
+    private int row;
+    private int col;
     
-    public Node() {
-        row = 0;
-        col = 0;
+    
+    public Node(int row, int col) {
+        this.row = row;
+        this.col = col;
     }
     
     public int getRow() {
@@ -26,9 +30,5 @@ public class Node {
         return col;
     }
     
-    public void setRow(int row) {
-        
-    }
-    
-    
 }
+
