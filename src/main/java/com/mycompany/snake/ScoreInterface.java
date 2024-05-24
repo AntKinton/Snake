@@ -11,5 +11,7 @@ package com.mycompany.snake;
 public interface ScoreInterface {
     public void incrementScore();
     public void reset();
+    public void updateScoreLabel();
+
     
 }

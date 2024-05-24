@@ -74,6 +74,8 @@ public class Snake {
         } else {
             return false;
         }
+        
+        
     }
 
     public boolean checkCollision(int headRow, int headCol) {

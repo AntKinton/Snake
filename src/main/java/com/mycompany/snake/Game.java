@@ -21,7 +21,7 @@ public class Game extends javax.swing.JFrame {
     public Game() {
         initComponents();
         setLocationRelativeTo(null);
-        //initCustomComponents();
+        initCustomComponents();
         board1.setPreferredSize(new Dimension(getWidth()*Board.NUM_ROWS, getHeight()*Board.NUM_COLS));
         getContentPane().add(board1, java.awt.BorderLayout.CENTER);
         initSettingsDialog();
@@ -40,9 +40,9 @@ public class Game extends javax.swing.JFrame {
     
     private void initCustomComponents() {
         // Sobrescribir la instancia de Board con una referencia a Game
-        board1 = new Board();
-        board1.setPreferredSize(new Dimension(getWidth() * Board.NUM_ROWS, getHeight() * Board.NUM_COLS));
-        getContentPane().add(board1, java.awt.BorderLayout.CENTER);
+        board1 = new Board(this);
+        //board1.setPreferredSize(new Dimension(getWidth() * Board.NUM_ROWS, getHeight() * Board.NUM_COLS));
+        //getContentPane().add(board1, java.awt.BorderLayout.CENTER);
     }
 
     

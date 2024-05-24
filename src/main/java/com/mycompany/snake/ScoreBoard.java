@@ -27,7 +27,7 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
         updateScoreLabel();
     }
     
-    private void updateScoreLabel() {
+    public void updateScoreLabel() {
         jLabelScore.setText("" + ConfigData.getInstance().getScore());
     }
     
