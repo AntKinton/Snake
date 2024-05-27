@@ -62,31 +62,52 @@ public class Snake {
                 headCol++;
                 break;
         }
-        if (checkCollision(headRow, headCol)) {
-            Node node = new Node(headRow, headCol);
+
+        //if (node instanceof Food || node instanceof SpecialFood) {
+        //}
+        Node currentNode = new Node(headRow, headCol);
+        if (checkCollision(headRow, headCol, currentNode)) {
             if (nodesToGrow > 0) {
                 nodesToGrow--;
             } else {
                 removeTailNode();
             }
-            body.add(0, node);
+            body.add(0, currentNode);
             return true;
         } else {
             return false;
         }
-        
-        
     }
 
-    public boolean checkCollision(int headRow, int headCol) {
+    /*   
+    Node node = // get the Node object you want to check
+
+if (node instanceof Food) {
+
+    // The node is a Food object
+
+} else {
+
+    // The node is not a Food object
+
+}
+     */
+    public boolean checkCollision(int headRow, int headCol, Node currentNode) {
         if (headRow < 0 || headRow >= Board.NUM_ROWS || headCol < 0 || headCol >= Board.NUM_COLS) {
             return false;
         }
 
+        if (currentNode != null && currentNode.getRow() == headRow && currentNode.getCol() == headCol) {
+            return false;
+        }
         for (Node node : body) {
             if (node.getRow() == headRow && node.getCol() == headCol) {
                 return false;
             }
+        }
+        if (currentNode != null || currentNode instanceof Food || 
+                currentNode instanceof SpecialFood) {
+            return false;
         }
         return true;
     }
@@ -98,7 +119,7 @@ public class Snake {
         //System.out.println(body.size());
     }
 
-   public boolean findsFood(Node node) {
+    /*public boolean findsFood(Node node) {
         Node head = getHeadNode();
         if (head == null) {
             //System.out.println("Head node is null.");
@@ -110,6 +131,13 @@ public class Snake {
             return false;
         }
 
+        return head.getRow() == node.getRow() && head.getCol() == node.getCol();
+    }*/
+    public boolean findsFood(Node node) {
+        if (node == null) {
+            return false;
+        }
+        Node head = getHeadNode();
         return head.getRow() == node.getRow() && head.getCol() == node.getCol();
     }
 

@@ -72,30 +72,10 @@ public class Board extends javax.swing.JPanel {
     /**
      * Creates new form Board
      */
-    /*public Board() {
-        initComponents();
-        newGame();
-        initGame();
-    }*/
-
-    public Board(Game game, ScoreBoard scoreBoard) {
-        this.game = game;
-        this.scoreBoard = scoreBoard;
-        initComponents();
-        newGame();
+    public Board() {
+      initComponents();
     }
 
-    /*public Board(Game game) {
-        this.game = game;
-        //initComponents();
-        //newGame();
-        /*snake = new Snake();
-        food = genFood();
-        sFood = genSpecialFood();
-        keyAdapter = new MyKeyAdapter();
-        //initGame();
-        //repaint();
-    }*/
     public void initGame() {
         addKeyListener(keyAdapter);
         setFocusable(true);
@@ -112,83 +92,28 @@ public class Board extends javax.swing.JPanel {
 
         });
         timer.start();
-        //setRequestFocusEnabled(true);
     }
 
     public void pauseGame() {
-        if (timer.isRunning()) {
+        if (timer.isRunning() || timer != null) {
             timer.stop();
         } else {
             timer.start();
         }
     }
 
-    /*public void newGame() {
-        snake = new Snake();
-        food = genFood();
-        //sFood = genSpecialFood();
-        //sFood=null;
-        keyAdapter = new MyKeyAdapter();
-        //requestFocus();
-        //initGame();
-        //repaint();
-    }*/
     public void newGame() {
         snake = new Snake();
         food = genFood();
-        //sFood = genSpecialFood();
+        sFood = genSpecialFood();
         keyAdapter = new MyKeyAdapter();
-        scoreBoard.reset();
+        //scoreBoard.reset();
         requestFocus();
         initGame();
         repaint();
     }
 
-    /*private void tick() {
-        snake.makeMove();
-        
-        /*if (catchSPCount == SP_FOOD_CATCH_INTERVAL) {
-            if (respawnSPCount == SP_FOOD_RESPAWN_INTERVAL) {
-                sFood = genSpecialFood();
-                respawnSPCount = 0;
-            }
-            sFood = null;
-            catchSPCount = 0;
-        }
-    if (snake.findsFood (food) 
-        ) {
-            //snake.getBody().add(food);
-            snake.setNodesToGrow(1);
-        food = genFood();
-    }
-
     
-        else {
-            if (snake.findsFood(sFood)) {
-            //snake.getBody().add(sFood);
-            snake.setNodesToGrow(3);
-            //sFood = genSpecialFood();
-            if (respawnSPCount == SP_FOOD_RESPAWN_INTERVAL) {
-                sFood = genSpecialFood();
-                respawnSPCount = 0;
-            }
-        }
-        if (catchSPCount == SP_FOOD_CATCH_INTERVAL) {
-            catchSPCount = 0;
-        }
-
-    }
-
-    /*if (!snake.makeMove()) {
-            Game game = new Game();
-            newGame();
-            game.initSettingsDialog();
-        };
-        catchSPCount++;
-        respawnSPCount++;
-        
-        repaint();
-    }*/
     private void tick() {
         if (!snake.makeMove()) {
             timer.stop();
@@ -200,11 +125,12 @@ public class Board extends javax.swing.JPanel {
         if (snake.findsFood(food)) {
             snake.setNodesToGrow(NODES_TOGROW);
             food = genFood();
-            scoreBoard.incrementScore();
+            scoreBoard.incrementScore(); // Incrementa la puntuación
         } else {
             if (snake.findsFood(sFood)) {
                 snake.setNodesToGrow(SPECIAL_NODES_TOGROW);
                 sFood = null;
+                scoreBoard.incrementScore(); // Incrementa la puntuación                
                 if (respawnSPCount == SP_FOOD_RESPAWN_INTERVAL) {
                     sFood = genSpecialFood();
                     respawnSPCount = 0;
@@ -215,11 +141,8 @@ public class Board extends javax.swing.JPanel {
             }
         }
 
-        // Actualizamos los contadores
         catchSPCount++;
         respawnSPCount++;
-
-        // Repintamos el tablero
         repaint();
     }
 
@@ -233,12 +156,10 @@ public class Board extends javax.swing.JPanel {
 
     public int getSquareWidth() {
         return getWidth() / NUM_COLS;
-        //return getWidth() / ConfigData.getInstance().getNumCols();
     }
 
     public int getSquareHeight() {
         return getHeight() / NUM_ROWS;
-        //return getHeight() / ConfigData.getInstance().getNumRows();
     }
 
     @Override
@@ -251,7 +172,9 @@ public class Board extends javax.swing.JPanel {
         if (!snake.getBody().isEmpty()) {
             snake.paintBody(g, getSquareWidth(), getSquareHeight());
             food.paintNode(g, getSquareWidth(), getSquareHeight());
-            sFood.paintNode(g, getSquareWidth(), getSquareHeight());
+            if (sFood != null) {
+                sFood.paintNode(g, getSquareWidth(), getSquareHeight());
+            }
         }
         Toolkit.getDefaultToolkit().sync();
     }

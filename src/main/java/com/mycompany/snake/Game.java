@@ -20,31 +20,24 @@ public class Game extends javax.swing.JFrame {
      */
     public Game() {
         initComponents();
-        setLocationRelativeTo(null);
-        initCustomComponents();
-        board1.setPreferredSize(new Dimension(getWidth()*Board.NUM_ROWS, getHeight()*Board.NUM_COLS));
         getContentPane().add(board1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(scoreBoard1, java.awt.BorderLayout.PAGE_END);
+        setLocationRelativeTo(null);
         initSettingsDialog();
         pack();
-        //board1 = new Board(this);
         
     }
     
     public void initSettingsDialog() {
+        board1.setPreferredSize(new Dimension(getWidth() * Board.NUM_ROWS, getHeight() * Board.NUM_COLS));
+        
         ConfigDialog configDialog = new ConfigDialog(this, true);
         //board1.pauseGame();
         configDialog.setVisible(true);
-        //board1.requestFocus();
-        board1.initGame();
+        board1.requestFocus();
+        //board1.initGame();
+        board1.newGame();
     }
-    
-    private void initCustomComponents() {
-        // Sobrescribir la instancia de Board con una referencia a Game
-        board1 = new Board(this);
-        //board1.setPreferredSize(new Dimension(getWidth() * Board.NUM_ROWS, getHeight() * Board.NUM_COLS));
-        //getContentPane().add(board1, java.awt.BorderLayout.CENTER);
-    }
-
     
     /**
      * This method is called from within the constructor to initialize the form.
