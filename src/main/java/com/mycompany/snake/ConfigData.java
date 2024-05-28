@@ -20,8 +20,6 @@ public class ConfigData {
 
 
     public ConfigData() {
-        //ConfigDialog configDialog = new ConfigDialog(null, true);
-        //configDialog.setVisible(true);
         playerName = "Player1";
         level = 0;
         score = 0;

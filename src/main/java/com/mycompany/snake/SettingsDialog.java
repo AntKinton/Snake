@@ -4,30 +4,28 @@
  */
 package com.mycompany.snake;
 
-import javax.swing.JComboBox;
-import javax.swing.Timer;
-
 /**
  *
  * @author alu13257670
  */
-public class ConfigDialog extends javax.swing.JDialog {
+public class SettingsDialog extends javax.swing.JDialog {
     
     private boolean okConfirmed = false;
 
     /**
      * Creates new form ConfigDialog
      */
-    public ConfigDialog(java.awt.Frame parent, boolean modal) {
+    public SettingsDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        playerNameField.setText(ConfigData.getInstance().getPlayerName());
         levelComboBox.setSelectedIndex(ConfigData.getInstance().getLevel());
 
     }
 
     public String getPlayerName() {
-        return playerName.getText();
+        return playerNameField.getText();
     }
     
     public int getLevel() {
@@ -49,13 +47,14 @@ public class ConfigDialog extends javax.swing.JDialog {
 
         levelLabel = new javax.swing.JLabel();
         levelComboBox = new javax.swing.JComboBox<>();
-        settingsButton = new javax.swing.JButton();
+        confirmSettingsButton = new javax.swing.JButton();
         nameLabel = new javax.swing.JLabel();
-        playerName = new javax.swing.JTextField();
+        playerNameField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        levelLabel.setText("Select level:");
+        levelLabel.setText("Change you playing speed:");
 
         levelComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Beginner", "Intermediate", "Difficult", " ", " " }));
         levelComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -64,52 +63,62 @@ public class ConfigDialog extends javax.swing.JDialog {
             }
         });
 
-        settingsButton.setText("OK");
-        settingsButton.addActionListener(new java.awt.event.ActionListener() {
+        confirmSettingsButton.setText("Save & Continue");
+        confirmSettingsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                settingsButtonActionPerformed(evt);
+                confirmSettingsButtonActionPerformed(evt);
             }
         });
 
-        nameLabel.setText("Type your name:");
+        nameLabel.setText("Your current name:");
 
-        playerName.addActionListener(new java.awt.event.ActionListener() {
+        playerNameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playerNameActionPerformed(evt);
+                playerNameFieldActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        jLabel1.setText("Game settings");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(180, Short.MAX_VALUE)
-                .addComponent(settingsButton)
-                .addGap(21, 21, 21))
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameLabel)
-                    .addComponent(levelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(levelLabel)
-                    .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(confirmSettingsButton)
+                        .addGap(34, 34, 34))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameLabel)
+                            .addComponent(levelLabel)
+                            .addComponent(playerNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(levelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(173, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addComponent(nameLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(playerNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(levelLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(levelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(settingsButton)
-                .addGap(18, 18, 18))
+                .addGap(10, 10, 10)
+                .addComponent(confirmSettingsButton)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -135,17 +144,17 @@ public class ConfigDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_levelComboBoxActionPerformed
 
-    private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
+    private void confirmSettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmSettingsButtonActionPerformed
         // TODO add your handling code here:
         okConfirmed = true;
         setVisible(false);
         //dispose();
-    }//GEN-LAST:event_settingsButtonActionPerformed
+    }//GEN-LAST:event_confirmSettingsButtonActionPerformed
 
-    private void playerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerNameActionPerformed
+    private void playerNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerNameFieldActionPerformed
         // TODO add your handling code here:
-        ConfigData.getInstance().setPlayerName(playerName.getText());
-    }//GEN-LAST:event_playerNameActionPerformed
+        ConfigData.getInstance().setPlayerName(playerNameField.getText());
+    }//GEN-LAST:event_playerNameFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,21 +173,23 @@ public class ConfigDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConfigDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SettingsDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConfigDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SettingsDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConfigDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SettingsDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConfigDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SettingsDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ConfigDialog dialog = new ConfigDialog(new javax.swing.JFrame(), true);
+                SettingsDialog dialog = new SettingsDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -191,10 +202,11 @@ public class ConfigDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton confirmSettingsButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JComboBox<String> levelComboBox;
     private javax.swing.JLabel levelLabel;
     private javax.swing.JLabel nameLabel;
-    private javax.swing.JTextField playerName;
-    private javax.swing.JButton settingsButton;
+    private javax.swing.JTextField playerNameField;
     // End of variables declaration//GEN-END:variables
 }

@@ -31,7 +31,7 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
 
     public void resetScorePoints() {
         ConfigData.getInstance().setScore(0);
-        repaint();
+        scoreDataLabel.setText(Integer.toString(ConfigData.getInstance().getScore()));
     }
 
     /**

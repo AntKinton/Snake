@@ -4,9 +4,6 @@
  */
 package com.mycompany.snake;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 /**
  *
  * @author alu13257670

@@ -5,9 +5,6 @@
 package com.mycompany.snake;
 
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import javax.swing.Timer;
 
 /**
  *
@@ -21,8 +18,6 @@ public class Game extends javax.swing.JFrame {
      * Creates new form Game
      */
     public Game() {
-        
-        initStartDialog();
         initComponents();
         getContentPane().add(board1, java.awt.BorderLayout.CENTER);
         getContentPane().add(scoreBoard1, java.awt.BorderLayout.PAGE_END);
@@ -30,34 +25,12 @@ public class Game extends javax.swing.JFrame {
         board1.setPreferredSize(new Dimension(getWidth() * Board.NUM_ROWS, getHeight() * Board.NUM_COLS));
         board1.setScoreInterface(scoreBoard1);
         board1.requestFocus();
+        board1.initGame();
         board1.newGame();
         pack();
 
     }
 
-    public void initStartDialog() {
-        ConfigDialog configDialog = new ConfigDialog(this, true);
-        configDialog.setVisible(true);
-        if (configDialog.isConfirmed()) {
-            ConfigData.getInstance().setPlayerName(configDialog.getPlayerName());
-            ConfigData.getInstance().setLevel(configDialog.getLevel());
-        }
-    }
-    
-    
-    
-   
-
-    public void initSettingsDialog() {
-        //board1.pauseGame();
-        ConfigDialog configDialog = new ConfigDialog(this, true);
-        configDialog.setVisible(true);
-        if (configDialog.isConfirmed()) {
-            ConfigData.getInstance().setPlayerName(configDialog.getPlayerName());
-            ConfigData.getInstance().setLevel(configDialog.getLevel());
-        }
-        //board1.requestFocus();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -167,12 +140,12 @@ public class Game extends javax.swing.JFrame {
 
     private void playPauseMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseMenuItemActionPerformed
         // TODO add your handling code here:
-        board1.pauseGame();
+        board1.pauseToggleGame();
     }//GEN-LAST:event_playPauseMenuItemActionPerformed
 
     private void playPauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseButtonActionPerformed
         // TODO add your handling code here:
-        board1.pauseGame();
+        board1.pauseToggleGame();
     }//GEN-LAST:event_playPauseButtonActionPerformed
 
     private void restartMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartMenuItemActionPerformed
@@ -196,7 +169,7 @@ public class Game extends javax.swing.JFrame {
         configDialog.setVisible(true);
         board1.requestFocus();
         board1.initGame();*/
-        initSettingsDialog();
+        board1.doSettingsDialog(this);
     }//GEN-LAST:event_levelMenuItemActionPerformed
 
     private void newGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameButtonActionPerformed

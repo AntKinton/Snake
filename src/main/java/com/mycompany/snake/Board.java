@@ -39,13 +39,9 @@ public class Board extends javax.swing.JPanel {
                     break;
 
                 case KeyEvent.VK_SPACE:
-                    pauseGame();
+                    pauseToggleGame();
                     break;
-                /*default:
-                    System.out.println("Hello Snake");
-                    break;*/
             }
-            //repaint();
         }
     }
 
@@ -65,29 +61,18 @@ public class Board extends javax.swing.JPanel {
     private static final int SP_FOOD_RESPAWN_INTERVAL = 100;
     private MyKeyAdapter keyAdapter;
     private Timer timer;
-    //private Game game;
     private ScoreInterface scoreInterface;
-    private JFrame parentFRame;
-    //private RestartDialog restartDialog;
+    private JFrame parentFrame;
 
     /**
      * Creates new form Board
      */
     public Board() {
         initComponents();
-        keyAdapter = new MyKeyAdapter();
-        initGame();
-    }
-
-    public Board(JFrame parentFrame) {
-        this.parentFRame = parentFrame;
-        initComponents();
-        keyAdapter = new MyKeyAdapter();
-        initGame();
-        newGame();
     }
 
     public void initGame() {
+        keyAdapter = new MyKeyAdapter();
         addKeyListener(keyAdapter);
         setFocusable(true);
         int deltaTime = ConfigData.getInstance().getDeltaTime();
@@ -99,12 +84,11 @@ public class Board extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent ae) {
                 tick();
             }
-
         });
         timer.start();
     }
 
-    public void pauseGame() {
+    public void pauseToggleGame() {
         if (timer.isRunning() || timer != null) {
             timer.stop();
         } else {
@@ -113,26 +97,42 @@ public class Board extends javax.swing.JPanel {
     }
 
     public void newGame() {
-        scoreInterface.resetScorePoints();
-        RestartDialog restartDialog = new RestartDialog(parentFRame, true);
-        restartDialog.setFocusable(true);
-        //if (restartDialog.isConfirmed()) {
-            snake = new Snake();
-            food = genFood();
-            sFood = genSpecialFood();
-            //keyAdapter = new MyKeyAdapter();
-            //requestFocus();
-            initGame();
-            repaint();
-        //}
+        doRestartDialog(parentFrame);
+        snake = new Snake();
+        food = genFood();
+        sFood = genSpecialFood();
+        initGame();
+        repaint();
     }
-    
-    public void DoRestartDialog(JFrame parentFrame) {
-        RestartDialog restartDialog = new RestartDialog(this, true);
+
+    public void doRestartDialog(JFrame parentFrame) {
+        RestartDialog restartDialog = new RestartDialog(parentFrame, true);
+        if (ConfigData.getInstance().getLevel() == 0) {
+            restartDialog.setLastScoreLabel("");
+            restartDialog.setMessageLabel("Welcome to Snake!");
+            restartDialog.setConfirmButton("Start game..");
+        } else {
+            restartDialog.setLastScoreLabel("Your last score was " + ConfigData.getInstance().getScore() + " points!");
+            scoreInterface.resetScorePoints();
+            restartDialog.setPlayerName(ConfigData.getInstance().getPlayerName());
+            restartDialog.setMessageLabel("Game finished.");
+            restartDialog.setConfirmButton("Try again..");
+        }
         restartDialog.setVisible(true);
         if (restartDialog.isConfirmed()) {
             ConfigData.getInstance().setPlayerName(restartDialog.getPlayerName());
             ConfigData.getInstance().setLevel(restartDialog.getLevel());
+        }
+    }
+
+    public void doSettingsDialog(JFrame parentFrame) {
+        //pauseToggleGame();
+        SettingsDialog configDialog = new SettingsDialog(parentFrame, true);
+        configDialog.setVisible(true);
+        if (configDialog.isConfirmed()) {
+            ConfigData.getInstance().setPlayerName(configDialog.getPlayerName());
+            ConfigData.getInstance().setLevel(configDialog.getLevel());
+            pauseToggleGame();
         }
     }
 
@@ -143,12 +143,7 @@ public class Board extends javax.swing.JPanel {
     private void tick() {
         if (!snake.canMakeMove()) {
             timer.stop();
-            //game.initStartDialog();
-            //RestartDialog restartDialog = new RestartDialog(this,true);
-            //restartDialog.setVisible(true);
             newGame();
-            //game.initSettingsDialog();
-            //newGame();
             return;
         }
 

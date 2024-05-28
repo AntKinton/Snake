@@ -23,37 +23,47 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="180" max="32767" attributes="0"/>
-              <Component id="settingsButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="levelComboBox" min="-2" pref="144" max="-2" attributes="0"/>
-                  <Component id="levelLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="playerName" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="confirmSettingsButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="levelLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="playerNameField" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Component id="levelComboBox" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="173" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="playerName" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="playerNameField" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Component id="levelLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="levelComboBox" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Component id="settingsButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="confirmSettingsButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,7 +71,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="levelLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Select level:"/>
+        <Property name="text" type="java.lang.String" value="Change you playing speed:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="levelComboBox">
@@ -83,23 +93,31 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="settingsButton">
+    <Component class="javax.swing.JButton" name="confirmSettingsButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="OK"/>
+        <Property name="text" type="java.lang.String" value="Save &amp; Continue"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="settingsButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmSettingsButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="nameLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Type your name:"/>
+        <Property name="text" type="java.lang.String" value="Your current name:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="playerName">
+    <Component class="javax.swing.JTextField" name="playerNameField">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playerNameActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playerNameFieldActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Cantarell" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Game settings"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
