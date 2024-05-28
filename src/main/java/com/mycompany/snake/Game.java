@@ -15,22 +15,46 @@ import javax.swing.Timer;
  */
 public class Game extends javax.swing.JFrame {
 
+    private ConfigDialog configDialog;
+
     /**
      * Creates new form Game
      */
     public Game() {
+        
+        initStartDialog();
         initComponents();
+        
+        //initSettingsDialog();
+        //board1.ConfigDialog(this, true);
         getContentPane().add(board1, java.awt.BorderLayout.CENTER);
         getContentPane().add(scoreBoard1, java.awt.BorderLayout.PAGE_END);
         setLocationRelativeTo(null);
-        initSettingsDialog();
+        board1.setPreferredSize(new Dimension(getWidth() * Board.NUM_ROWS, getHeight() * Board.NUM_COLS));
+        board1.requestFocus();
+        board1.newGame();
         pack();
-        
+
     }
-    
+
+    public void initStartDialog() {
+        // Create and display the configuration dialog
+        configDialog = new ConfigDialog(this, true);
+        configDialog.setVisible(true);
+
+        // Ensure the game board is focused for keyboard input
+        if (configDialog.isConfirmed()) {
+            // Set the configuration data
+            //ConfigData configData = new ConfigData();
+            ConfigData.getInstance().setPlayerName(configDialog.getPlayerName());
+            ConfigData.getInstance().setLevel(configDialog.getLevel());
+            scoreBoard1 = new ScoreBoard();
+        }
+    }
+
     public void initSettingsDialog() {
         board1.setPreferredSize(new Dimension(getWidth() * Board.NUM_ROWS, getHeight() * Board.NUM_COLS));
-        
+
         ConfigDialog configDialog = new ConfigDialog(this, true);
         //board1.pauseGame();
         configDialog.setVisible(true);
@@ -38,7 +62,7 @@ public class Game extends javax.swing.JFrame {
         //board1.initGame();
         board1.newGame();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

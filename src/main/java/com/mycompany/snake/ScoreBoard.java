@@ -14,10 +14,13 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
     /** Creates new form ScoreBoard */
     public ScoreBoard() {
         initComponents();
+        
+        nameDataLabel.setText(ConfigData.getInstance().getPlayerName());
+        scoreDataLabel.setText(Integer.toString(ConfigData.getInstance().getScore()));
     }
     
-    public void incrementScore() {
-        int currentScore = ConfigData.getInstance().getScore() + 1;
+    public void incrementScore(int numScore) {
+        int currentScore = ConfigData.getInstance().getScore() + numScore;
         ConfigData.getInstance().setScore(currentScore);
         updateScoreLabel();
     }
@@ -28,7 +31,7 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
     }
     
     public void updateScoreLabel() {
-        jLabelScore.setText("" + ConfigData.getInstance().getScore());
+        scoreDataLabel.setText("" + ConfigData.getInstance().getScore());
     }
     
     
@@ -42,35 +45,51 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelScore = new javax.swing.JLabel();
+        scoreDataLabel = new javax.swing.JLabel();
+        nameDataLabel = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        scoreLabel = new javax.swing.JLabel();
 
-        jLabelScore.setText("0");
+        nameLabel.setText("Name:");
+
+        scoreLabel.setText("Score:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabelScore)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(nameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nameDataLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                .addComponent(scoreLabel)
+                .addGap(18, 18, 18)
+                .addComponent(scoreDataLabel)
+                .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 34, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 8, Short.MAX_VALUE)
-                    .addComponent(jLabelScore)
-                    .addGap(0, 9, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(scoreDataLabel)
+                        .addComponent(scoreLabel))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(nameDataLabel)
+                        .addComponent(nameLabel)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabelScore;
+    private javax.swing.JLabel nameDataLabel;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel scoreDataLabel;
+    private javax.swing.JLabel scoreLabel;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -4,42 +4,51 @@
  */
 package com.mycompany.snake;
 
+
 /**
  *
  * @author alu13257670
  */
 public class ConfigData {
-    private static ConfigData configData = new ConfigData();
-    
+
+    private static ConfigData configDataInstance;
+    //private static ConfigData configData = new ConfigData();
     private String playerName;
     private int level;
     private int score;
     private int deltaTime;
-    
-    private ConfigData() {
-        playerName = "";
+
+
+    ConfigData() {
+        //ConfigDialog configDialog = new ConfigDialog(null, true);
+        //configDialog.setVisible(true);
+        playerName = "Player1";
         level = 0;
         score = 0;
         deltaTime = 500; //First starts in Beginner level
     }
-    
+
     public static ConfigData getInstance() {
-        return configData;
+
+        if (configDataInstance == null) {
+            configDataInstance = new ConfigData();
+        }
+        return configDataInstance;
+
     }
-    
+
     public int getDeltaTime() {
         return deltaTime;
     }
-    
+
     public void setDeltaTime(int deltaTime) {
         this.deltaTime = deltaTime;
     }
-    
-    
+
     public String getPlayerName() {
         return playerName;
     }
-    
+
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
@@ -59,5 +68,5 @@ public class ConfigData {
     public void setScore(int score) {
         this.score = score;
     }
-    
+
 }

@@ -9,7 +9,7 @@ package com.mycompany.snake;
  * @author alu13257670
  */
 public interface ScoreInterface {
-    public void incrementScore();
+    public void incrementScore(int numScore);
     public void reset();
     public void updateScoreLabel();
 

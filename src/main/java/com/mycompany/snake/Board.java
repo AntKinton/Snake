@@ -67,13 +67,14 @@ public class Board extends javax.swing.JPanel {
     private MyKeyAdapter keyAdapter;
     private Timer timer;
     private Game game;
-    private ScoreBoard scoreBoard;
+    //private ConfigDialog configDialog;
+    //private ScoreBoard scoreBoard;
 
     /**
      * Creates new form Board
      */
     public Board() {
-      initComponents();
+        initComponents();
     }
 
     public void initGame() {
@@ -113,36 +114,37 @@ public class Board extends javax.swing.JPanel {
         repaint();
     }
 
-    
     private void tick() {
-        if (!snake.makeMove()) {
+        if (!snake.canMakeMove()) {
             timer.stop();
             game.initSettingsDialog();
             newGame();
             return;
         }
 
+        // Verifica si la serpiente encuentra comida normal
         if (snake.findsFood(food)) {
             snake.setNodesToGrow(NODES_TOGROW);
             food = genFood();
-            scoreBoard.incrementScore(); // Incrementa la puntuación
-        } else {
-            if (snake.findsFood(sFood)) {
-                snake.setNodesToGrow(SPECIAL_NODES_TOGROW);
-                sFood = null;
-                scoreBoard.incrementScore(); // Incrementa la puntuación                
-                if (respawnSPCount == SP_FOOD_RESPAWN_INTERVAL) {
-                    sFood = genSpecialFood();
-                    respawnSPCount = 0;
-                }
-            }
-            if (catchSPCount == SP_FOOD_CATCH_INTERVAL) {
-                catchSPCount = 0;
+            //scoreBoard.incrementScore(FOOD_SCORE); // Incrementa el marcador
+        }
+
+        // Verifica si la serpiente encuentra comida especial
+        if (snake.findsFood(sFood)) {
+            snake.setNodesToGrow(SPECIAL_NODES_TOGROW);
+            //scoreBoard.incrementScore(SP_FOOD_SCORE); // Incrementa el marcador con comida especial
+            sFood = null;
+            if (respawnSPCount == Board.SP_FOOD_RESPAWN_INTERVAL) {
+                sFood = genSpecialFood();
+                respawnSPCount = 0;
             }
         }
 
+        // Actualiza los contadores
         catchSPCount++;
         respawnSPCount++;
+
+        // Repinta el tablero
         repaint();
     }
 

@@ -12,6 +12,8 @@ import javax.swing.Timer;
  * @author alu13257670
  */
 public class ConfigDialog extends javax.swing.JDialog {
+    
+    private boolean okConfirmed = false;
 
     /**
      * Creates new form ConfigDialog
@@ -21,11 +23,20 @@ public class ConfigDialog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         levelComboBox.setSelectedIndex(ConfigData.getInstance().getLevel());
-        
+
+    }
+
+    public String getPlayerName() {
+        return playerName.getText();
     }
     
+    public int getLevel() {
+        return levelComboBox.getSelectedIndex();
+    }
     
-    
+    public boolean isConfirmed() {
+        return okConfirmed;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,7 +51,7 @@ public class ConfigDialog extends javax.swing.JDialog {
         levelComboBox = new javax.swing.JComboBox<>();
         settingsButton = new javax.swing.JButton();
         nameLabel = new javax.swing.JLabel();
-        nameTextField = new javax.swing.JTextField();
+        playerName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -60,9 +71,13 @@ public class ConfigDialog extends javax.swing.JDialog {
             }
         });
 
-        nameLabel.setText("Player name:");
+        nameLabel.setText("Type your name:");
 
-        nameTextField.setText("jTextField1");
+        playerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playerNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,7 +93,7 @@ public class ConfigDialog extends javax.swing.JDialog {
                     .addComponent(nameLabel)
                     .addComponent(levelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(levelLabel)
-                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -87,7 +102,7 @@ public class ConfigDialog extends javax.swing.JDialog {
                 .addGap(37, 37, 37)
                 .addComponent(nameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(levelLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -122,9 +137,15 @@ public class ConfigDialog extends javax.swing.JDialog {
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
         // TODO add your handling code here:
+        okConfirmed = true;
         setVisible(false);
         //dispose();
     }//GEN-LAST:event_settingsButtonActionPerformed
+
+    private void playerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerNameActionPerformed
+        // TODO add your handling code here:
+        ConfigData.getInstance().setPlayerName(playerName.getText());
+    }//GEN-LAST:event_playerNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,7 +193,7 @@ public class ConfigDialog extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> levelComboBox;
     private javax.swing.JLabel levelLabel;
     private javax.swing.JLabel nameLabel;
-    private javax.swing.JTextField nameTextField;
+    private javax.swing.JTextField playerName;
     private javax.swing.JButton settingsButton;
     // End of variables declaration//GEN-END:variables
 }

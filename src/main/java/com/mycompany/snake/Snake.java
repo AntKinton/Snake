@@ -44,7 +44,7 @@ public class Snake {
         this.direction = direction;
     }
 
-    public boolean makeMove() {
+    /*public boolean canMakeMove() {
         int headRow = getHeadNode().getRow();
         int headCol = getHeadNode().getCol();
 
@@ -77,7 +77,42 @@ public class Snake {
         } else {
             return false;
         }
+    }*/
+    public boolean canMakeMove() {
+        int headRow = getHeadNode().getRow();
+        int headCol = getHeadNode().getCol();
+
+        // Determina la nueva posición de la cabeza según la dirección actual
+        switch (direction) {
+            case UP:
+                headRow--;
+                break;
+            case DOWN:
+                headRow++;
+                break;
+            case LEFT:
+                headCol--;
+                break;
+            case RIGHT:
+                headCol++;
+                break;
+        }
+
+        // Verifica si hay una colisión
+        if (!checkCollision(headRow, headCol)) {
+            Node newHead = new Node(headRow, headCol);
+            body.add(0, newHead); // Añade la nueva cabeza al inicio del cuerpo
+            if (nodesToGrow > 0) {
+                nodesToGrow--; // Decrementa el contador de nodos para crecer
+            } else {
+                body.remove(body.size() - 1); // Elimina el nodo de la cola
+            }
+            return true;
+        } else {
+            return false; // Colisión detectada
+        }
     }
+
 
     /*   
     Node node = // get the Node object you want to check
@@ -92,7 +127,7 @@ if (node instanceof Food) {
 
 }
      */
-    public boolean checkCollision(int headRow, int headCol, Node currentNode) {
+ /*public boolean checkCollision(int headRow, int headCol, Node currentNode) {
         if (headRow < 0 || headRow >= Board.NUM_ROWS || headCol < 0 || headCol >= Board.NUM_COLS) {
             return false;
         }
@@ -110,6 +145,22 @@ if (node instanceof Food) {
             return false;
         }
         return true;
+    }*/
+    public boolean checkCollision(int headRow, int headCol) {
+        // Verifica si la cabeza de la serpiente está fuera de los límites del tablero
+        if (headRow < 0 || headRow >= Board.NUM_ROWS || headCol < 0 || headCol >= Board.NUM_COLS) {
+            return true; // Hay colisión con el borde del tablero
+        }
+
+        // Verifica si la cabeza de la serpiente colisiona con su propio cuerpo
+        for (int i = 1; i < body.size(); i++) { // Comienza en 1 para ignorar la cabeza actual
+            Node node = body.get(i);
+            if (node.getRow() == headRow && node.getCol() == headCol) {
+                return true; // Hay colisión consigo misma
+            }
+        }
+
+        return false; // No hay colisión
     }
 
     private void removeTailNode() {
