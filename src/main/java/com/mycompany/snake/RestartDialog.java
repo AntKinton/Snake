@@ -11,14 +11,14 @@ import javax.swing.Timer;
  *
  * @author alu13257670
  */
-public class ConfigDialog extends javax.swing.JDialog {
+public class RestartDialog extends javax.swing.JDialog {
     
     private boolean okConfirmed = false;
 
     /**
      * Creates new form ConfigDialog
      */
-    public ConfigDialog(java.awt.Frame parent, boolean modal) {
+    public RestartDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -189,7 +189,6 @@ public class ConfigDialog extends javax.swing.JDialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> levelComboBox;
     private javax.swing.JLabel levelLabel;

@@ -10,7 +10,8 @@ package com.mycompany.snake;
  */
 public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
 
-    private static ScoreBoard scoreBoardInstance;
+    //private static ScoreBoard scoreBoardInstance;
+    private int score;
 
     /**
      * Creates new form ScoreBoard
@@ -21,28 +22,11 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
         scoreDataLabel.setText(Integer.toString(ConfigData.getInstance().getScore()));
     }
 
-    public static ScoreBoard getInstance() {
-
-        if (scoreBoardInstance == null) {
-            scoreBoardInstance = new ScoreBoard();
-        }
-        return scoreBoardInstance;
-
-    }
-
-    /*public void incrementScorePoints(int newFoodPoints) {
-        ConfigData.getInstance().setScore(Integer.parseInt(scoreDataLabel.getText() + newFoodPoints));
-        scoreDataLabel.setText(Integer.toString(ConfigData.getInstance().getScore()));
-        repaint();
-    }*/
     public void incrementScorePoints(int newFoodPoints) {
-        ConfigData configData = ConfigData.getInstance();
-        int currentScore = configData.getScore();
-        if (scoreDataLabel != null && configData != null) {
-            configData.setScore(currentScore + newFoodPoints);
-            scoreDataLabel.setText(Integer.toString(configData.getScore()));
-            repaint();
-        }
+        int currentScore = ConfigData.getInstance().getScore();
+        currentScore = currentScore + newFoodPoints;
+        ConfigData.getInstance().setScore(currentScore);
+        scoreDataLabel.setText(Integer.toString(ConfigData.getInstance().getScore()));
     }
 
     public void resetScorePoints() {
@@ -50,14 +34,6 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
         repaint();
     }
 
-
-    /*public void updateScorePoints() {
-        SwingUtilities.invokeLater(() -> {
-            scoreDataLabel.setText(Integer.toString(ConfigData.getInstance().getScore()));
-            scoreDataLabel.getParent().repaint();
-        });
-
-    }*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

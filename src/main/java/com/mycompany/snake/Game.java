@@ -15,7 +15,7 @@ import javax.swing.Timer;
  */
 public class Game extends javax.swing.JFrame {
 
-    private ConfigDialog configDialog;
+    //private ConfigDialog configDialog;
 
     /**
      * Creates new form Game
@@ -28,6 +28,7 @@ public class Game extends javax.swing.JFrame {
         getContentPane().add(scoreBoard1, java.awt.BorderLayout.PAGE_END);
         setLocationRelativeTo(null);
         board1.setPreferredSize(new Dimension(getWidth() * Board.NUM_ROWS, getHeight() * Board.NUM_COLS));
+        board1.setScoreInterface(scoreBoard1);
         board1.requestFocus();
         board1.newGame();
         pack();
@@ -35,26 +36,27 @@ public class Game extends javax.swing.JFrame {
     }
 
     public void initStartDialog() {
-        configDialog = new ConfigDialog(this, true);
+        ConfigDialog configDialog = new ConfigDialog(this, true);
         configDialog.setVisible(true);
         if (configDialog.isConfirmed()) {
             ConfigData.getInstance().setPlayerName(configDialog.getPlayerName());
             ConfigData.getInstance().setLevel(configDialog.getLevel());
         }
     }
+    
+    
+    
+   
 
     public void initSettingsDialog() {
-        board1.pauseGame();
+        //board1.pauseGame();
+        ConfigDialog configDialog = new ConfigDialog(this, true);
         configDialog.setVisible(true);
-        board1.requestFocus();
-    }
-    
-    public void updateScoreBoard(int scorePoints) {
-        scoreBoard1.incrementScorePoints(scorePoints);
-    }
-    
-    public void resetScoreBoard() {
-        scoreBoard1.resetScorePoints();
+        if (configDialog.isConfirmed()) {
+            ConfigData.getInstance().setPlayerName(configDialog.getPlayerName());
+            ConfigData.getInstance().setLevel(configDialog.getLevel());
+        }
+        //board1.requestFocus();
     }
 
     /**

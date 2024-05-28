@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 import javax.swing.Timer;
 
 /**
@@ -40,9 +41,9 @@ public class Board extends javax.swing.JPanel {
                 case KeyEvent.VK_SPACE:
                     pauseGame();
                     break;
-                default:
+                /*default:
                     System.out.println("Hello Snake");
-                    break;
+                    break;*/
             }
             //repaint();
         }
@@ -64,13 +65,26 @@ public class Board extends javax.swing.JPanel {
     private static final int SP_FOOD_RESPAWN_INTERVAL = 100;
     private MyKeyAdapter keyAdapter;
     private Timer timer;
-    private Game game;
+    //private Game game;
+    private ScoreInterface scoreInterface;
+    private JFrame parentFRame;
+    //private RestartDialog restartDialog;
 
     /**
      * Creates new form Board
      */
     public Board() {
         initComponents();
+        keyAdapter = new MyKeyAdapter();
+        initGame();
+    }
+
+    public Board(JFrame parentFrame) {
+        this.parentFRame = parentFrame;
+        initComponents();
+        keyAdapter = new MyKeyAdapter();
+        initGame();
+        newGame();
     }
 
     public void initGame() {
@@ -99,31 +113,52 @@ public class Board extends javax.swing.JPanel {
     }
 
     public void newGame() {
-        snake = new Snake();
-        food = genFood();
-        sFood = genSpecialFood();
-        keyAdapter = new MyKeyAdapter();
-        //game.resetScoreBoard();
-        requestFocus();
-        initGame();
-        repaint();
+        scoreInterface.resetScorePoints();
+        RestartDialog restartDialog = new RestartDialog(parentFRame, true);
+        restartDialog.setFocusable(true);
+        //if (restartDialog.isConfirmed()) {
+            snake = new Snake();
+            food = genFood();
+            sFood = genSpecialFood();
+            //keyAdapter = new MyKeyAdapter();
+            //requestFocus();
+            initGame();
+            repaint();
+        //}
+    }
+    
+    public void DoRestartDialog(JFrame parentFrame) {
+        RestartDialog restartDialog = new RestartDialog(this, true);
+        restartDialog.setVisible(true);
+        if (restartDialog.isConfirmed()) {
+            ConfigData.getInstance().setPlayerName(restartDialog.getPlayerName());
+            ConfigData.getInstance().setLevel(restartDialog.getLevel());
+        }
+    }
+
+    public void setScoreInterface(ScoreInterface scoreInterface) {
+        this.scoreInterface = scoreInterface;
     }
 
     private void tick() {
         if (!snake.canMakeMove()) {
             timer.stop();
-            game.initSettingsDialog();
+            //game.initStartDialog();
+            //RestartDialog restartDialog = new RestartDialog(this,true);
+            //restartDialog.setVisible(true);
             newGame();
+            //game.initSettingsDialog();
+            //newGame();
             return;
         }
 
         if (snake.findsFood(food)) {
-            game.updateScoreBoard(FOOD_SCORE);
+            scoreInterface.incrementScorePoints(FOOD_SCORE);
             snake.setNodesToGrow(NODES_TOGROW);
-            food = genFood();        
+            food = genFood();
         }
         if (snake.findsFood(sFood)) {
-            game.updateScoreBoard(SP_FOOD_SCORE);
+            scoreInterface.incrementScorePoints(SP_FOOD_SCORE);
             snake.setNodesToGrow(SPECIAL_NODES_TOGROW);
             sFood = null;
             if (respawnSPCount == SP_FOOD_RESPAWN_INTERVAL) {
