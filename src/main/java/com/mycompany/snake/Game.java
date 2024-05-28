@@ -24,9 +24,6 @@ public class Game extends javax.swing.JFrame {
         
         initStartDialog();
         initComponents();
-        
-        //initSettingsDialog();
-        //board1.ConfigDialog(this, true);
         getContentPane().add(board1, java.awt.BorderLayout.CENTER);
         getContentPane().add(scoreBoard1, java.awt.BorderLayout.PAGE_END);
         setLocationRelativeTo(null);
@@ -38,29 +35,26 @@ public class Game extends javax.swing.JFrame {
     }
 
     public void initStartDialog() {
-        // Create and display the configuration dialog
         configDialog = new ConfigDialog(this, true);
         configDialog.setVisible(true);
-
-        // Ensure the game board is focused for keyboard input
         if (configDialog.isConfirmed()) {
-            // Set the configuration data
-            //ConfigData configData = new ConfigData();
             ConfigData.getInstance().setPlayerName(configDialog.getPlayerName());
             ConfigData.getInstance().setLevel(configDialog.getLevel());
-            scoreBoard1 = new ScoreBoard();
         }
     }
 
     public void initSettingsDialog() {
-        board1.setPreferredSize(new Dimension(getWidth() * Board.NUM_ROWS, getHeight() * Board.NUM_COLS));
-
-        ConfigDialog configDialog = new ConfigDialog(this, true);
-        //board1.pauseGame();
+        board1.pauseGame();
         configDialog.setVisible(true);
         board1.requestFocus();
-        //board1.initGame();
-        board1.newGame();
+    }
+    
+    public void updateScoreBoard(int scorePoints) {
+        scoreBoard1.incrementScorePoints(scorePoints);
+    }
+    
+    public void resetScoreBoard() {
+        scoreBoard1.resetScorePoints();
     }
 
     /**

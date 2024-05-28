@@ -19,7 +19,7 @@ public class ConfigData {
     private int deltaTime;
 
 
-    ConfigData() {
+    public ConfigData() {
         //ConfigDialog configDialog = new ConfigDialog(null, true);
         //configDialog.setVisible(true);
         playerName = "Player1";

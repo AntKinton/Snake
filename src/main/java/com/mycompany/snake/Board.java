@@ -62,13 +62,9 @@ public class Board extends javax.swing.JPanel {
     private static final int SP_FOOD_CATCH_INTERVAL = 40;
     private int respawnSPCount = 0;
     private static final int SP_FOOD_RESPAWN_INTERVAL = 100;
-    //private int currentRow;
-    //private int currentCol;
     private MyKeyAdapter keyAdapter;
     private Timer timer;
     private Game game;
-    //private ConfigDialog configDialog;
-    //private ScoreBoard scoreBoard;
 
     /**
      * Creates new form Board
@@ -80,7 +76,6 @@ public class Board extends javax.swing.JPanel {
     public void initGame() {
         addKeyListener(keyAdapter);
         setFocusable(true);
-        //setRequestFocusEnabled(true);
         int deltaTime = ConfigData.getInstance().getDeltaTime();
         if (timer != null && timer.isRunning()) {
             timer.stop();
@@ -108,7 +103,7 @@ public class Board extends javax.swing.JPanel {
         food = genFood();
         sFood = genSpecialFood();
         keyAdapter = new MyKeyAdapter();
-        //scoreBoard.reset();
+        //game.resetScoreBoard();
         requestFocus();
         initGame();
         repaint();
@@ -122,29 +117,22 @@ public class Board extends javax.swing.JPanel {
             return;
         }
 
-        // Verifica si la serpiente encuentra comida normal
         if (snake.findsFood(food)) {
+            game.updateScoreBoard(FOOD_SCORE);
             snake.setNodesToGrow(NODES_TOGROW);
-            food = genFood();
-            //scoreBoard.incrementScore(FOOD_SCORE); // Incrementa el marcador
+            food = genFood();        
         }
-
-        // Verifica si la serpiente encuentra comida especial
         if (snake.findsFood(sFood)) {
+            game.updateScoreBoard(SP_FOOD_SCORE);
             snake.setNodesToGrow(SPECIAL_NODES_TOGROW);
-            //scoreBoard.incrementScore(SP_FOOD_SCORE); // Incrementa el marcador con comida especial
             sFood = null;
-            if (respawnSPCount == Board.SP_FOOD_RESPAWN_INTERVAL) {
+            if (respawnSPCount == SP_FOOD_RESPAWN_INTERVAL) {
                 sFood = genSpecialFood();
                 respawnSPCount = 0;
             }
         }
-
-        // Actualiza los contadores
         catchSPCount++;
         respawnSPCount++;
-
-        // Repinta el tablero
         repaint();
     }
 
@@ -166,7 +154,6 @@ public class Board extends javax.swing.JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        //g.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(g);
         g.setColor(Color.BLACK);
         g.drawRect(0, 0, getWidth() / NUM_COLS * NUM_COLS,
