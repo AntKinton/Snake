@@ -27,9 +27,7 @@ public class Game extends javax.swing.JFrame {
         board1.requestFocus();
         board1.initGame();
         board1.newGame();
-        
         pack();
-
     }
 
 
@@ -158,6 +156,9 @@ public class Game extends javax.swing.JFrame {
     private void restartMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartMenuItemActionPerformed
         // TODO add your handling code here:
         board1.newGame();
+        if (board1.isPaused()) {
+            board1.pauseToggleGame();
+        }
     }//GEN-LAST:event_restartMenuItemActionPerformed
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
@@ -182,6 +183,9 @@ public class Game extends javax.swing.JFrame {
     private void newGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameButtonActionPerformed
         // TODO add your handling code here:
         board1.newGame();
+        if (board1.isPaused()) {
+            board1.pauseToggleGame();
+        }
     }//GEN-LAST:event_newGameButtonActionPerformed
 
 

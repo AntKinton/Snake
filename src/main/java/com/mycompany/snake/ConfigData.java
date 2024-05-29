@@ -12,7 +12,6 @@ package com.mycompany.snake;
 public class ConfigData {
 
     private static ConfigData configDataInstance;
-    //private static ConfigData configData = new ConfigData();
     private String playerName;
     private int level;
     private int score;

@@ -114,7 +114,9 @@ public class Board extends javax.swing.JPanel {
     public void doRestartDialog(JFrame parentFrame) {
         RestartDialog restartDialog = new RestartDialog(parentFrame, true);
         if (!gameStarted) {
-            pauseToggleGame();
+            if (!isPaused()) {
+                pauseToggleGame();
+            }
             restartDialog.setLastScoreLabel("");
             restartDialog.setMessageLabel("Welcome to Snaked!");
             restartDialog.setConfirmButton("Start game..");
