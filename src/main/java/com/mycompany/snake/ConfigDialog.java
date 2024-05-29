@@ -4,33 +4,30 @@
  */
 package com.mycompany.snake;
 
-import java.awt.event.KeyAdapter;
+import javax.swing.JComboBox;
+import javax.swing.Timer;
 
 /**
  *
  * @author alu13257670
  */
-public class RestartDialog extends javax.swing.JDialog {
+public class ConfigDialog extends javax.swing.JDialog {
     
     private boolean okConfirmed = false;
-    private KeyAdapter keyAdapter;
 
     /**
      * Creates new form ConfigDialog
      */
-    public RestartDialog(java.awt.Frame parent, boolean modal) {
+    public ConfigDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        //this.keyAdapter = keyAdapter;
-        //addKeyListener(keyAdapter);
         setLocationRelativeTo(null);
-        playerNameField.setText(ConfigData.getInstance().getPlayerName());
         levelComboBox.setSelectedIndex(ConfigData.getInstance().getLevel());
 
     }
-    
+
     public String getPlayerName() {
-        return playerNameField.getText();
+        return playerName.getText();
     }
     
     public int getLevel() {
@@ -40,24 +37,6 @@ public class RestartDialog extends javax.swing.JDialog {
     public boolean isConfirmed() {
         return okConfirmed;
     }
-    
-    public void setPlayerName(String playerName) {
-        playerNameField.setText(playerName);
-    }
-    
-    public void setLastScoreLabel(String scoreString) {
-        lastScoreLabel.setText(scoreString);
-    }
-    
-    public void setMessageLabel(String message) {
-        messageLabel.setText(message);
-    }
-    
-    public void setConfirmButton (String confirm) {
-        confirmButton.setText(confirm);
-    }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,11 +49,9 @@ public class RestartDialog extends javax.swing.JDialog {
 
         levelLabel = new javax.swing.JLabel();
         levelComboBox = new javax.swing.JComboBox<>();
-        confirmButton = new javax.swing.JButton();
+        settingsButton = new javax.swing.JButton();
         nameLabel = new javax.swing.JLabel();
-        playerNameField = new javax.swing.JTextField();
-        messageLabel = new javax.swing.JLabel();
-        lastScoreLabel = new javax.swing.JLabel();
+        playerName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -87,64 +64,52 @@ public class RestartDialog extends javax.swing.JDialog {
             }
         });
 
-        confirmButton.setText("OK");
-        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+        settingsButton.setText("OK");
+        settingsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmButtonActionPerformed(evt);
+                settingsButtonActionPerformed(evt);
             }
         });
 
         nameLabel.setText("Type your name:");
 
-        playerNameField.addActionListener(new java.awt.event.ActionListener() {
+        playerName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playerNameFieldActionPerformed(evt);
+                playerNameActionPerformed(evt);
             }
         });
-
-        messageLabel.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
-        messageLabel.setText("Here goes a message");
-
-        lastScoreLabel.setFont(new java.awt.Font("Cantarell", 1, 16)); // NOI18N
-        lastScoreLabel.setText("here goes last score message");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(levelLabel)
-                    .addComponent(messageLabel)
-                    .addComponent(nameLabel)
-                    .addComponent(playerNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(levelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lastScoreLabel))
-                .addContainerGap(129, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(confirmButton)
-                .addGap(44, 44, 44))
+                .addContainerGap(180, Short.MAX_VALUE)
+                .addComponent(settingsButton)
+                .addGap(21, 21, 21))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nameLabel)
+                    .addComponent(levelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(levelLabel)
+                    .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
-                .addComponent(lastScoreLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(messageLabel)
-                .addGap(24, 24, 24)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addComponent(nameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(playerNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(levelLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(levelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(confirmButton)
-                .addGap(27, 27, 27))
+                .addGap(37, 37, 37)
+                .addComponent(settingsButton)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -170,17 +135,17 @@ public class RestartDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_levelComboBoxActionPerformed
 
-    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+    private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
         // TODO add your handling code here:
         okConfirmed = true;
         setVisible(false);
         //dispose();
-    }//GEN-LAST:event_confirmButtonActionPerformed
+    }//GEN-LAST:event_settingsButtonActionPerformed
 
-    private void playerNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerNameFieldActionPerformed
+    private void playerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerNameActionPerformed
         // TODO add your handling code here:
-        ConfigData.getInstance().setPlayerName(getPlayerName());
-    }//GEN-LAST:event_playerNameFieldActionPerformed
+        ConfigData.getInstance().setPlayerName(playerName.getText());
+    }//GEN-LAST:event_playerNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,13 +164,13 @@ public class RestartDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SettingsDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfigDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SettingsDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfigDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SettingsDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfigDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SettingsDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfigDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -213,24 +178,23 @@ public class RestartDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                RestartDialog restartDialog = new RestartDialog(new javax.swing.JFrame(), true);
-                restartDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                ConfigDialog dialog = new ConfigDialog(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });
-                restartDialog.setVisible(true);
+                dialog.setVisible(true);
             }
         });
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton confirmButton;
-    private javax.swing.JLabel lastScoreLabel;
     private javax.swing.JComboBox<String> levelComboBox;
     private javax.swing.JLabel levelLabel;
-    private javax.swing.JLabel messageLabel;
     private javax.swing.JLabel nameLabel;
-    private javax.swing.JTextField playerNameField;
+    private javax.swing.JTextField playerName;
+    private javax.swing.JButton settingsButton;
     // End of variables declaration//GEN-END:variables
 }

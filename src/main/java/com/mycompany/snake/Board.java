@@ -71,12 +71,12 @@ public class Board extends javax.swing.JPanel {
      */
     public Board() {
         initComponents();
-        keyAdapter = new MyKeyAdapter();
-        addKeyListener(keyAdapter);
+        //keyAdapter = new MyKeyAdapter();
+        //addKeyListener(keyAdapter);
     }
 
     public void initGame() {
-
+        
         setFocusable(true);
         int deltaTime = ConfigData.getInstance().getDeltaTime();
         if (timer != null && timer.isRunning()) {
@@ -89,6 +89,11 @@ public class Board extends javax.swing.JPanel {
             }
         });
         timer.start();
+    }
+    
+    public void callKeyAdapter() {
+        keyAdapter = new MyKeyAdapter();
+        addKeyListener(keyAdapter);
     }
 
     public void pauseToggleGame() {
@@ -108,11 +113,13 @@ public class Board extends javax.swing.JPanel {
         food = genFood();
         initGame();
         doRestartDialog(parentFrame);
+        requestFocus();
         repaint();
     }
 
     public void doRestartDialog(JFrame parentFrame) {
         RestartDialog restartDialog = new RestartDialog(parentFrame, true);
+        callKeyAdapter();
         if (!gameStarted) {
             if (!isPaused()) {
                 pauseToggleGame();

@@ -26,6 +26,7 @@ public class Game extends javax.swing.JFrame {
         board1.setScoreInterface(scoreBoard1);
         board1.requestFocus();
         board1.initGame();
+        board1.callKeyAdapter();
         board1.newGame();
         pack();
     }
