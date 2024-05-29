@@ -19,7 +19,7 @@ public class SettingsDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        //playerNameField.setText(ConfigData.getInstance().getPlayerName());
+        playerNameField.setText(ConfigData.getInstance().getPlayerName());
         levelComboBox.setSelectedIndex(ConfigData.getInstance().getLevel());
 
     }
@@ -34,6 +34,10 @@ public class SettingsDialog extends javax.swing.JDialog {
     
     public boolean isConfirmed() {
         return okConfirmed;
+    }
+    
+    public void setPlayerName(String playerName) {
+        playerNameField.setText(playerName);
     }
 
     /**
@@ -153,7 +157,7 @@ public class SettingsDialog extends javax.swing.JDialog {
 
     private void playerNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerNameFieldActionPerformed
         // TODO add your handling code here:
-        ConfigData.getInstance().setPlayerName(playerNameField.getText());
+        ConfigData.getInstance().setPlayerName(getPlayerName());
     }//GEN-LAST:event_playerNameFieldActionPerformed
 
     /**
@@ -189,14 +193,14 @@ public class SettingsDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                SettingsDialog dialog = new SettingsDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                SettingsDialog settingsDialog = new SettingsDialog(new javax.swing.JFrame(), true);
+                settingsDialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });
-                dialog.setVisible(true);
+                settingsDialog.setVisible(true);
             }
         });
     }

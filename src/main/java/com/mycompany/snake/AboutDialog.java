@@ -17,6 +17,7 @@ public class AboutDialog extends javax.swing.JDialog {
     public AboutDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     public boolean isConfirmed() {
@@ -39,9 +40,10 @@ public class AboutDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Snake\nvers. 1.0\n\nAuthor: Antonio Vidal\n1º DAM - Programación\nIES - El Caminàs`\nURL: https://github.com/AntKinton");
+        jTextArea1.setText("Snaked\nvers. 1.0\n\nAuthor: Antonio Vidal\n1º DAM - Programación\nIES - El Caminàs`\nURL: https://github.com/AntKinton");
         jScrollPane1.setViewportView(jTextArea1);
 
         confirmAbout.setText("OK");
@@ -67,7 +69,7 @@ public class AboutDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 94, Short.MAX_VALUE))
+                .addGap(0, 104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

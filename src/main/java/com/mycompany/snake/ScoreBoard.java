@@ -55,8 +55,14 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
         nameLabel = new javax.swing.JLabel();
         scoreLabel = new javax.swing.JLabel();
 
+        scoreDataLabel.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+
+        nameDataLabel.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+
+        nameLabel.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
         nameLabel.setText("Name:");
 
+        scoreLabel.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
         scoreLabel.setText("Score:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -68,7 +74,7 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
                 .addComponent(nameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nameDataLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addComponent(scoreLabel)
                 .addGap(18, 18, 18)
                 .addComponent(scoreDataLabel)
@@ -77,7 +83,7 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(scoreDataLabel)
