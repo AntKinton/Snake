@@ -10,12 +10,17 @@ package com.mycompany.snake;
  */
 public class AboutDialog extends javax.swing.JDialog {
 
+    private boolean okConfirmed = false;
     /**
      * Creates new form AboutDialog
      */
     public AboutDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    
+    public boolean isConfirmed() {
+        return okConfirmed;
     }
 
     /**
@@ -29,7 +34,7 @@ public class AboutDialog extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        confirmAbout = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -39,7 +44,12 @@ public class AboutDialog extends javax.swing.JDialog {
         jTextArea1.setText("Snake\nvers. 1.0\n\nAuthor: Antonio Vidal\n1º DAM - Programación\nIES - El Caminàs`\nURL: https://github.com/AntKinton");
         jScrollPane1.setViewportView(jTextArea1);
 
-        jButton1.setText("OK");
+        confirmAbout.setText("OK");
+        confirmAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmAboutActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
         jLabel1.setText("About:");
@@ -50,7 +60,7 @@ public class AboutDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(confirmAbout)
                 .addGap(37, 37, 37))
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
@@ -67,12 +77,18 @@ public class AboutDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(confirmAbout)
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void confirmAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmAboutActionPerformed
+        // TODO add your handling code here:
+        okConfirmed = true;
+        setVisible(false);
+    }//GEN-LAST:event_confirmAboutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,7 +133,7 @@ public class AboutDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton confirmAbout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;

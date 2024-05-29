@@ -56,9 +56,9 @@ public class Board extends javax.swing.JPanel {
     private Food food;
     private SpecialFood sFood;
     private int catchSPCount = 0;
-    private static final int SP_FOOD_CATCH_INTERVAL = 40;
+    private static final int SP_FOOD_CATCH_INTERVAL = 20;
     private int respawnSPCount = 0;
-    private static final int SP_FOOD_RESPAWN_INTERVAL = 100;
+    private static final int SP_FOOD_RESPAWN_INTERVAL = 60;
     private MyKeyAdapter keyAdapter;
     private Timer timer;
     private ScoreInterface scoreInterface;
@@ -100,14 +100,14 @@ public class Board extends javax.swing.JPanel {
         doRestartDialog(parentFrame);
         snake = new Snake();
         food = genFood();
-        sFood = genSpecialFood();
+        //sFood = genSpecialFood();
         initGame();
         repaint();
     }
 
     public void doRestartDialog(JFrame parentFrame) {
         RestartDialog restartDialog = new RestartDialog(parentFrame, true);
-        if (ConfigData.getInstance().getLevel() == 0) {
+        if (scoreInterface.getCurrentScore() == 0 && timer.isRunning()) {
             restartDialog.setLastScoreLabel("");
             restartDialog.setMessageLabel("Welcome to Snake!");
             restartDialog.setConfirmButton("Start game..");
@@ -120,7 +120,9 @@ public class Board extends javax.swing.JPanel {
         }
         restartDialog.setVisible(true);
         if (restartDialog.isConfirmed()) {
+            //ConfigData.getInstance().setPlayerName(restartDialog.getPlayerName());
             ConfigData.getInstance().setPlayerName(restartDialog.getPlayerName());
+            scoreInterface.setPlayerName(ConfigData.getInstance().getPlayerName());
             ConfigData.getInstance().setLevel(restartDialog.getLevel());
         }
     }
@@ -132,6 +134,16 @@ public class Board extends javax.swing.JPanel {
         if (configDialog.isConfirmed()) {
             ConfigData.getInstance().setPlayerName(configDialog.getPlayerName());
             ConfigData.getInstance().setLevel(configDialog.getLevel());
+            pauseToggleGame();
+        }
+    }
+    
+    
+    public void doAboutDialog(JFrame parentFrame) {
+        //pauseToggleGame();
+        AboutDialog aboutDialog = new AboutDialog(parentFrame, true);
+        aboutDialog.setVisible(true);
+        if (aboutDialog.isConfirmed()) {
             pauseToggleGame();
         }
     }
@@ -156,13 +168,18 @@ public class Board extends javax.swing.JPanel {
             scoreInterface.incrementScorePoints(SP_FOOD_SCORE);
             snake.setNodesToGrow(SPECIAL_NODES_TOGROW);
             sFood = null;
-            if (respawnSPCount == SP_FOOD_RESPAWN_INTERVAL) {
+            
+        }
+        if (respawnSPCount == SP_FOOD_RESPAWN_INTERVAL) {
                 sFood = genSpecialFood();
                 respawnSPCount = 0;
-            }
+                catchSPCount = 0;
         }
         catchSPCount++;
         respawnSPCount++;
+        if (catchSPCount == SP_FOOD_CATCH_INTERVAL) {
+            sFood = null;
+        }
         repaint();
     }
 

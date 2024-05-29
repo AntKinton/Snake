@@ -11,8 +11,7 @@ package com.mycompany.snake;
 public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
 
     //private static ScoreBoard scoreBoardInstance;
-    private int score;
-
+    
     /**
      * Creates new form ScoreBoard
      */
@@ -32,6 +31,14 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreInterface {
     public void resetScorePoints() {
         ConfigData.getInstance().setScore(0);
         scoreDataLabel.setText(Integer.toString(ConfigData.getInstance().getScore()));
+    }
+    
+    public void setPlayerName(String playerName) {
+        nameDataLabel.setText(playerName);
+    }
+    
+    public int getCurrentScore() {
+        return Integer.parseInt(scoreDataLabel.getText());
     }
 
     /**

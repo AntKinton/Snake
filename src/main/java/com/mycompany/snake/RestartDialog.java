@@ -19,6 +19,7 @@ public class RestartDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        setPlayerName(ConfigData.getInstance().getPlayerName());
         levelComboBox.setSelectedIndex(ConfigData.getInstance().getLevel());
 
     }
@@ -173,7 +174,8 @@ public class RestartDialog extends javax.swing.JDialog {
 
     private void playerNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerNameFieldActionPerformed
         // TODO add your handling code here:
-        ConfigData.getInstance().setPlayerName(playerNameField.getText());
+        ConfigData.getInstance().setPlayerName(getPlayerName());
+        //setPlayerName(getPlayerName());
     }//GEN-LAST:event_playerNameFieldActionPerformed
 
     /**

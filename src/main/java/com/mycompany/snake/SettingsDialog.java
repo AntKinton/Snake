@@ -19,7 +19,7 @@ public class SettingsDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        playerNameField.setText(ConfigData.getInstance().getPlayerName());
+        //playerNameField.setText(ConfigData.getInstance().getPlayerName());
         levelComboBox.setSelectedIndex(ConfigData.getInstance().getLevel());
 
     }

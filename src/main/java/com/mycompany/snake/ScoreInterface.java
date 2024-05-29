@@ -11,4 +11,6 @@ package com.mycompany.snake;
 public interface ScoreInterface {
     public void incrementScorePoints(int newFoodPoints);
     public void resetScorePoints();
+    public void setPlayerName(String playerName);
+    public int getCurrentScore();
 }
